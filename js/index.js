@@ -6,6 +6,7 @@
   const routes = {
     // path: url - 상대경로!!!!!!!!!!! :물리경로
     "./nav__home": contextPath + "/pages/home.html",
+    "./nav__formvali": contextPath + "/pages/formvali.html",
     "./nav__todo": contextPath + "/pages/todolist.html",
     "./nav__pushstate": contextPath + "/pages/pushstate.html",
   };

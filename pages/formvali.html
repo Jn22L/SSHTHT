@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>폼 validation</title>
+    <script defer src="./js/formvali.js"></script>
+  </head>
+  <body>
+    <div id="error"></div>
+    <form id="form" action="/" method="GET">
+      <div>
+        <label for="name">이름</label>
+        <input id="name" name="name" type="text" required />
+      </div>
+      <div>
+        <label for="password">패스워드</label>
+        <input id="password" name="password" type="password" />
+      </div>
+      <button type="submit">로그인</button>
+    </form>
+  </body>
+</html>
