@@ -9,6 +9,8 @@
     "./nav__formvali": contextPath + "/pages/formvali.html",
     "./nav__todo": contextPath + "/pages/todolist.html",
     "./nav__pushstate": contextPath + "/pages/pushstate.html",
+    "./nav__closure": contextPath + "/pages/closure_test.html",
+    "./nav__test": contextPath + "/test.html", // 항상 마지막에 유지 ( 테스트후 메뉴에 붙이기 )
   };
 
   const render = async (path) => {
