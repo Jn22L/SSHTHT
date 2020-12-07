@@ -3,6 +3,7 @@
 
   const routes = {
     "/nav__home": "./pages/home.html",
+    "/nav__formvali": "./pages/formvali.html",
     "/nav__todo": "./pages/todolist.html",
     "/nav__pushstate": "./pages/pushstate.html",
   };

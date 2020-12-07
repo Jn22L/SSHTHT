@@ -1,4 +1,4 @@
-"use strinct";
+"use strict";
 (function () {
   const name = document.getElementById("name");
   const age = document.getElementById("age");
