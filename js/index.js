@@ -19,7 +19,6 @@
   function setUnselectedAll() {
     let li_tags = document.querySelectorAll("#navigation li a");
     li_tags.forEach(function (v) {
-      console.log(v);
       v.setAttribute("class", "unselected");
     });
   }
