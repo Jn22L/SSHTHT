@@ -1,5 +1,28 @@
 (() => {
   const app = document.querySelector("#app");
+  const hookTest = document.querySelector("#hookTest");
+
+  // 클로저를 사용하여 리액트 hook 처럼 만들어 보기
+  const React = (function () {
+    let _val;
+    function useState(initVal) {
+      let state = _val || initVal;
+      const setState = (newVal) => {
+        _val = newVal;
+      };
+      return [state, setState];
+    }
+    return { useState };
+  })();
+
+  const hookTestFunc = () => {
+    const [count, setCount] = React.useState(1);
+    console.log(count); // 1
+    setCount(2);
+    console.log(count); // 1 (?)
+  };
+
+  hookTest.addEventListener("click", hookTestFunc);
 
   // 일반적인 setTimeout
   var i;
