@@ -13,7 +13,7 @@
 
     //선택 메뉴 표시
     setUnselectedAll();
-    document.querySelector(`a[href="${path}"]`).setAttribute("class", "selected");
+    document.querySelector(`#navigation li a[href="${path}"]`).setAttribute("class", "selected");
   }
 
   function setUnselectedAll() {
