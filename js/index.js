@@ -2,10 +2,11 @@
   const navigation = document.getElementById("navigation");
 
   const routes = {
-    "/nav__home": "./pages/home.html",
-    "/nav__formvali": "./pages/formvali.html",
-    "/nav__todo": "./pages/todolist.html",
-    "/nav__pushstate": "./pages/pushstate.html",
+    "/home": "./pages/home.html",
+    "/formvali": "./pages/formvali.html",
+    "/todo": "./pages/todolist.html",
+    "/closure": "./pages/closure_test.html",
+    "/pushstate": "./pages/pushstate.html",
   };
 
   function goMenu(path) {
