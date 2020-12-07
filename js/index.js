@@ -1,26 +1,18 @@
 (function () {
-  document.getElementById("nav__home").addEventListener("click", goMenuHome);
-  document.getElementById("nav__todo").addEventListener("click", goMenuTodo);
-  document
-    .getElementById("nav__pushstate")
-    .addEventListener("click", goMenuPushState);
+  const navigation = document.getElementById("navigation");
 
-  function goMenuHome() {
-    $("article").load(getContextPath() + "/pages/home.html");
-    setUnselectedAll();
-    document.getElementById("nav__home").setAttribute("class", "selected"); // 선택된 메뉴표시
-  }
+  const routes = {
+    "/nav__home": "./pages/home.html",
+    "/nav__todo": "./pages/todolist.html",
+    "/nav__pushstate": "./pages/pushstate.html",
+  };
 
-  function goMenuTodo() {
-    $("article").load(getContextPath() + "/pages/todolist.html");
-    setUnselectedAll();
-    document.getElementById("nav__todo").setAttribute("class", "selected");
-  }
-
-  function goMenuPushState() {
-    $("article").load(getContextPath() + "/pages/pushstate.html");
-    setUnselectedAll();
-    document.getElementById("nav__pushstate").setAttribute("class", "selected");
+  function goMenu(path) {
+    //alert("goMenu url:" + getContextPath() + path);
+    //$("article").load(getContextPath() + path);
+    $("article").load(path);
+    //setUnselectedAll();
+    //document.getElementById("nav__todo").setAttribute("class", "selected");
   }
 
   function setUnselectedAll() {
@@ -38,4 +30,11 @@
       location.href.indexOf("/", hostIndex + 1)
     );
   }
+
+  navigation.addEventListener("click", (e) => {
+    if (!e.target.matches("#navigation > li > a")) return;
+    e.preventDefault();
+    const path = e.target.getAttribute("href");
+    goMenu(routes[path]);
+  });
 })();
