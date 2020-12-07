@@ -19,7 +19,7 @@
     const [count, setCount] = React.useState(1);
     console.log(count); // 1
     setCount(2);
-    console.log(count); // 1 (?)
+    console.log(count); // 1 (?) ..... 오늘은 여기까지....아이고 머리야
   };
 
   hookTest.addEventListener("click", hookTestFunc);
