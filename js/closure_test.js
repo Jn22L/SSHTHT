@@ -21,7 +21,4 @@
       }, 1000);
     })(j);
   }
-
-  console.log("출력", ret.join(", "));
-  app.innerHTML = "왜 안찍히지";
 })();
