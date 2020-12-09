@@ -17,9 +17,9 @@
   }
 
   function setUnselectedAll() {
-    let li_tags = document.querySelectorAll("#navigation li a");
-    li_tags.forEach(function (v) {
-      v.setAttribute("class", "unselected");
+    let tags = document.querySelectorAll("#navigation li a");
+    tags.forEach(function (tag) {
+      tag.setAttribute("class", "unselected");
     });
   }
 
