@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <title>To Do List</title>
     <script src="./js/todolist.js" defer></script>
+    <link rel="stylesheet" href="./css/todolist.css" />
   </head>
   <body>
     <div class="list-box">
       <h1>To Do List</h1>
       <div class="write-box">
-        <input type="text" class="text-basic" />
+        <input type="text" id="inputAdd" class="text-basic" />
         <button type="button" id="btnAdd">추가</button>
       </div>
       <table class="list-table">
@@ -42,7 +43,6 @@
         <button type="button" id="DeleteSel">선택 삭제</button>
         <button type="button" id="btnDelLast">마지막 항목 삭제</button>
         <button type="button" id="btnDelAll">전체 삭제</button>
-        <button type="button" id="testtest" value="와 이너html의 잘못이구나">왜 동작 안하지?</button>
       </div>
     </div>
   </body>

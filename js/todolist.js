@@ -1,15 +1,4 @@
-console.log("todolist.js");
 (function () {
-  document.getElementById("btnAdd").addEventListener("click", addList); // 추가
-  document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
-  document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
-  document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
-  document.getElementById("testtest").addEventListener("click", testtest); //test
-
-  function testtest() {
-    console.log("음");
-  }
-
   // 추가
   function addList() {
     var contents = document.querySelector(".text-basic");
@@ -33,13 +22,19 @@ console.log("todolist.js");
     contents.focus();
   }
 
+  // 추가 - 엔터키
+  function addListEnter(event) {
+    const keyCode = event.keyCode;
+    if (keyCode == 13) {
+      addList();
+    }
+  }
+
   // 전체삭제
   function delAllEle() {
     var list = document.getElementById("listBody");
-    var listChild = list.children;
-    for (var i = 0; i < listChild.length; i++) {
-      list.removeChild(listChild[i]);
-      i--;
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
     }
   }
 
@@ -66,4 +61,10 @@ console.log("todolist.js");
       }
     }
   }
+
+  document.getElementById("btnAdd").addEventListener("click", addList); // 추가
+  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
+  document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
+  document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
+  document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
 })();
