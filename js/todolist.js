@@ -1,4 +1,6 @@
 (function () {
+  const dbSelectList = document.getElementById("dbSelectList");
+
   // 추가
   function addList() {
     var contents = document.querySelector(".text-basic");
@@ -20,6 +22,30 @@
     document.getElementById("listBody").appendChild(tr);
     contents.value = "";
     contents.focus();
+  }
+
+  // 추가 - 목록클릭시
+  function addList2(obj) {
+    // 전체삭제
+    var list = document.getElementById("listBody");
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
+
+    // 목록추가
+    obj.information.map((v) => {
+      var tr = document.createElement("tr");
+      var input = document.createElement("input");
+      input.setAttribute("type", "checkbox");
+      input.setAttribute("class", "btn-chk");
+      var td01 = document.createElement("td");
+      td01.appendChild(input);
+      tr.appendChild(td01);
+      var td02 = document.createElement("td");
+      td02.innerHTML = v.name;
+      tr.appendChild(td02);
+      document.getElementById("listBody").appendChild(tr);
+    });
   }
 
   // 추가 - 엔터키
@@ -62,6 +88,7 @@
     }
   }
 
+  // DB 전체목록조회
   function makeRequest() {
     httpRequest = new XMLHttpRequest();
 
@@ -90,9 +117,9 @@
     }
   }
 
-  // 전체조회결과 하단에 출력
+  // DB 전체목록조회 결과 하단에 출력
   function addSelectedList(jsonObj) {
-    const ul = document.getElementById("selectListAll");
+    const ul = document.getElementById("dbSelectList");
     // 전체삭제
     while (ul.firstChild) {
       ul.removeChild(ul.firstChild);
@@ -108,26 +135,14 @@
     });
   }
 
-  document.getElementById("btnAdd").addEventListener("click", addList); // 추가
-  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
-  document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
-  document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
-  document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
-  document.getElementById("ajaxButton").addEventListener("click", makeRequest); // 조회(GET:전체목록)
-  //document.getElementById("ajaxButton2").addEventListener("click", makeRequest2); // 조회(GET:fetch사용:전체목록)
+  // 하단 목록 클릭시, 상세 데이타 조회
+  dbSelectList.addEventListener("click", (e) => {
+    //if (!e.target.matches("#navigation > li > a")) return;
+    e.preventDefault();
 
-  document.getElementById("ajaxButton3").onclick = function () {
-    var redisKey = document.getElementById("inputAdd").value;
-    if (redisKey === "" || redisKey == null) {
-      alert("redisKey를 입력해 주세요.");
-      return;
-    }
-
+    const raw = e.target.getAttribute("href");
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "text/plain");
-
-    var raw = "my_sp_list_20201213-01:36:56양배추";
-
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -137,7 +152,18 @@
 
     fetch("https://jn22l.herokuapp.com/getValue", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      //.then((result) => addList2(result))
+      .then((result) => addList2(JSON.parse(result)))
       .catch((error) => console.log("error", error));
-  };
+  });
+
+  // 이벤트
+  document.getElementById("btnAdd").addEventListener("click", addList); // 추가
+  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
+  document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
+  document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
+  document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
+
+  // 최초 로딩시 : 하단에 목록 출력
+  makeRequest();
 })();
