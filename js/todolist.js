@@ -78,7 +78,9 @@
     try {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-          alert(httpRequest.responseText);
+          //console.log("전체조회", httpRequest.responseText);
+          //addSelectedList(httpRequest.responseText);
+          addSelectedList(JSON.parse(httpRequest.responseText));
         } else {
           alert("There was a problem with the request.");
         }
@@ -88,67 +90,22 @@
     }
   }
 
-  // get
-  // function makeRequest2() {
-  //   fetch("https://jn22l.herokuapp.com/getKeys")
-  //     .then(function (response) {
-  //       return response.json();
-  //     })
-  //     .then(function (myJson) {
-  //       console.log(JSON.stringify(myJson));
-  //     });
-  // }
-
-  // post
-  // Example POST method implementation:
-
-  function postData(url = "", data = {}) {
-    // Default options are marked with *
-    return fetch(url, {
-      method: "POST", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, cors, *same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: "follow", // manual, *follow, error
-      referrer: "no-referrer", // no-referrer, *client
-      body: JSON.stringify(data), // body data type must match "Content-Type" header
-    }).then((response) => response.json()); // parses JSON response into native JavaScript objects
-  }
-
-  function makeRequest3(url, redisKey) {
-    httpRequest = new XMLHttpRequest();
-
-    if (!httpRequest) {
-      alert("XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ");
-      return false;
+  // 전체조회결과 하단에 출력
+  function addSelectedList(jsonObj) {
+    const ul = document.getElementById("selectListAll");
+    // 전체삭제
+    while (ul.firstChild) {
+      ul.removeChild(ul.firstChild);
     }
-    httpRequest.onreadystatechange = alertContents3;
-    httpRequest.open("POST", url);
-    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //httpRequest.send("id=" + encodeURIComponent(redisKey));
-    httpRequest.send();
-
-    console.log(encodeURIComponent(redisKey));
-  }
-
-  function alertContents3() {
-    try {
-      if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-          //alert(httpRequest.responseText);
-          var response = JSON.parse(httpRequest.responseText);
-          alert(response.computedString);
-        } else {
-          alert("There was a problem with the request.");
-        }
-      }
-    } catch (e) {
-      alert("Caught Exception: " + e.description);
-    }
+    // 목록추가
+    jsonObj.map((v) => {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.setAttribute("href", v);
+      a.innerHTML = v;
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
   }
 
   document.getElementById("btnAdd").addEventListener("click", addList); // 추가
@@ -166,8 +123,21 @@
       return;
     }
 
-    postData("https://jsonplaceholder.typicode.com/todos", { id: 2 })
-      .then((data) => console.log(data)) // JSON-string from `response.json()` callconsole.log(JSON.stringify(data))) // JSON-string from `response.json()` call
-      .catch((error) => console.error(error));
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+
+    var raw = "my_sp_list_20201213-01:36:56양배추";
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("https://jn22l.herokuapp.com/getValue", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 })();
