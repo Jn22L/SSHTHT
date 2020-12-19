@@ -97,7 +97,7 @@
       return false;
     }
     httpRequest.onreadystatechange = alertContents;
-    httpRequest.open("GET", "http://localhost:8080/board/select");
+    httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/select");
     httpRequest.send();
   }
 
