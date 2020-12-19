@@ -97,7 +97,7 @@
       return false;
     }
     httpRequest.onreadystatechange = alertContents;
-    httpRequest.open("GET", "https://jn22l.herokuapp.com/getKeys");
+    httpRequest.open("GET", "http://localhost:8080/board/select");
     httpRequest.send();
   }
 
@@ -105,7 +105,7 @@
     try {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-          //console.log("전체조회", httpRequest.responseText);
+          //console.log("전체조회", JSON.parse(httpRequest.responseText));
           //addSelectedList(httpRequest.responseText);
           addSelectedList(JSON.parse(httpRequest.responseText));
         } else {
@@ -128,8 +128,8 @@
     jsonObj.map((v) => {
       var li = document.createElement("li");
       var a = document.createElement("a");
-      a.setAttribute("href", v);
-      a.innerHTML = v;
+      a.setAttribute("href", v.testId);
+      a.innerHTML = v.testName;
       li.appendChild(a);
       ul.appendChild(li);
     });
