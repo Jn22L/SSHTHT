@@ -1,6 +1,11 @@
 # 심심할땐 자바스크립트랑 놀기, 바닥부터 한땀한땀
 
 화면 : <https://jn22l.github.io/sshtht/>
+서버 : <https://github.com/Jn22L/sshtht-springboot-mariadb/board/select>
+
+## 2020-12-19
+
+- 백엔드 springboot 로 변경 : https://github.com/Jn22L/sshtht-springboot-mariadb/board/select>
 
 ## 2020-12-07
 
