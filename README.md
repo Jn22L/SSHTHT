@@ -2,7 +2,7 @@
 
 - 화면 : <https://jn22l.github.io/sshtht>
 
-## 2020-12-19 백엔드를 스프링부트로 변경
+## 2020-12-19 백엔드를 스프링부트로 변경 및 Heroku 배포
 
 - github : <https://github.com/Jn22L/sshtht-springboot-mariadb>
 - heroku : <https://sshtht-springboot-mariadb.herokuapp.com/board/select>
