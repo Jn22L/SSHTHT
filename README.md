@@ -25,8 +25,8 @@
   - `history.pushState('','',"./nave__todo")`
   - 상대경로 올렸을때 할일 url : https://jn22l.github.io/sshtht/nav__home
   - 상대경로 올렸을때 할일 js : https://jn22l.github.io/sshtht/todolist.js -> 잘찾음!!! 어휴ㅎ
-  
-  ## 2020-12-06
+
+## 2020-12-06
 
 - 메뉴클릭시 이동을 위하여 jquery 사용하던것을 걷어냄
 - fetch + pushstate 로 ajax 및 history 구현 [참조](https://poiemaweb.com/js-spa)
