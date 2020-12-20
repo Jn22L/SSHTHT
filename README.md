@@ -2,10 +2,16 @@
 
 - 화면 : <https://jn22l.github.io/sshtht>
 
+## 2020-12-20 DB저장/삭제 기능추가
+- DB저장 / 삭제기능 추가
+- heroku 배포했으나, select시 계속 에러발생
+  - application Java 에 루트 / 추가하여 배포하니 작동함
+  - 아마도 캐쉬 때문??
+
 ## 2020-12-19 백엔드를 스프링부트로 변경 및 Heroku 배포
 
 - github : <https://github.com/Jn22L/sshtht-springboot-mariadb>
-- heroku : <https://sshtht-springboot-mariadb.herokuapp.com/board/select>
+- heroku : <https://sshtht-springboot-mariadb.herokuapp.com/board/selectall>
 
 ## 2020-12-07
 
