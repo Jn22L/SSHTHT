@@ -1,5 +1,14 @@
 (function () {
   const dbSelectList = document.getElementById("dbSelectList");
+  let BACKEND_URL = "";
+
+  if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
+    BACKEND_URL = "http://localhost:8080"; // 로컬
+  } else {
+    BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
+  }
+
+  console.log("BACKEND_URL:", BACKEND_URL);
 
   // 추가
   function addList() {
@@ -101,7 +110,7 @@
     };
 
     //fetch("http://localhost:8080/board/selectall", requestOptions)
-    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/selectall", requestOptions)
+    fetch(BACKEND_URL + "/board/selectall", requestOptions)
       .then((response) => response.json())
       .then((result) => selectAll(result))
       .catch((error) => console.log("error", error));
@@ -153,7 +162,7 @@
     };
 
     //fetch(`http://localhost:8080/board/selectonelist?todoDt=${selectKey}`, requestOptions)
-    fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectonelist?todoDt=${selectKey}`, requestOptions)
+    fetch(`${BACKEND_URL}/board/selectonelist?todoDt=${selectKey}`, requestOptions)
       .then((response) => response.json())
       .then((result) => addList2(result))
       .catch((error) => console.log("error", error));
@@ -176,7 +185,7 @@
     };
 
     //fetch("http://localhost:8080/board/deleteone", requestOptions)
-    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/deleteone", requestOptions)
+    fetch(BACKEND_URL + "/board/deleteone", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
@@ -210,7 +219,7 @@
     };
 
     //fetch("http://localhost:8080/board/insertlist", requestOptions)
-    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/insertlist", requestOptions)
+    fetch(BACKEND_URL + "/board/insertlist", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         console.log(result);
