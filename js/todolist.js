@@ -141,7 +141,7 @@
     });
   }
 
-  // 하단 목록 클릭시, 상세 데이타 조회
+  // 하단 목록 이벤트 ( DB 상세조회 / DB 삭제 )
   dbSelectList.addEventListener("click", (e) => {
     e.preventDefault();
     if (e.target.tagName === "A") {
@@ -172,7 +172,6 @@
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
     var raw = JSON.stringify({ todoDt: deleteKey });
 
     var requestOptions = {
