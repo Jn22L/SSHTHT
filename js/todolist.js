@@ -32,8 +32,11 @@
       list.removeChild(list.firstChild);
     }
 
+    console.log(typeof obj, obj[0].todoList);
+
     // 목록추가
-    obj.information.map((v) => {
+    obj.map((v) => {
+      console.log(v.todoList);
       var tr = document.createElement("tr");
       var input = document.createElement("input");
       input.setAttribute("type", "checkbox");
@@ -42,7 +45,7 @@
       td01.appendChild(input);
       tr.appendChild(td01);
       var td02 = document.createElement("td");
-      td02.innerHTML = v.name;
+      td02.innerHTML = v.todoList;
       tr.appendChild(td02);
       document.getElementById("listBody").appendChild(tr);
     });
@@ -97,7 +100,8 @@
       return false;
     }
     httpRequest.onreadystatechange = alertContents;
-    httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/select");
+    httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/selectTodoList");
+    //httpRequest.open("GET", "http://localhost:8080/board/selectTodoList");
     httpRequest.send();
   }
 
@@ -105,8 +109,6 @@
     try {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-          //console.log("전체조회", JSON.parse(httpRequest.responseText));
-          //addSelectedList(httpRequest.responseText);
           addSelectedList(JSON.parse(httpRequest.responseText));
         } else {
           alert("There was a problem with the request.");
@@ -128,33 +130,27 @@
     jsonObj.map((v) => {
       var li = document.createElement("li");
       var a = document.createElement("a");
-      a.setAttribute("href", v.testId);
-      a.innerHTML = v.testName;
+      a.setAttribute("href", v.todoDt);
+      a.innerHTML = v.todoDt + " " + v.todoList;
       li.appendChild(a);
       ul.appendChild(li);
     });
   }
 
-  // 하단 목록 클릭시, 상세 데이타 조회
+  // 하단 목록 클릭시, 상세 데이타 조회 ( POST text/plain )
   dbSelectList.addEventListener("click", (e) => {
     //if (!e.target.matches("#navigation > li > a")) return;
     e.preventDefault();
+    href = e.target.getAttribute("href");
 
-    const raw = e.target.getAttribute("href");
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "text/plain");
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("https://jn22l.herokuapp.com/getValue", requestOptions)
-      .then((response) => response.text())
-      //.then((result) => addList2(result))
-      .then((result) => addList2(JSON.parse(result)))
-      .catch((error) => console.log("error", error));
+    fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectOneList/${href}`);
+    //fetch(`http://localhost:8080/board/selectOneList/${href}`)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        addList2(myJson);
+      });
   });
 
   // 이벤트
