@@ -109,7 +109,6 @@
       redirect: "follow",
     };
 
-    //fetch("http://localhost:8080/board/selectall", requestOptions)
     fetch(BACKEND_URL + "/board/selectall", requestOptions)
       .then((response) => response.json())
       .then((result) => selectAll(result))
@@ -161,7 +160,6 @@
       redirect: "follow",
     };
 
-    //fetch(`http://localhost:8080/board/selectonelist?todoDt=${selectKey}`, requestOptions)
     fetch(`${BACKEND_URL}/board/selectonelist?todoDt=${selectKey}`, requestOptions)
       .then((response) => response.json())
       .then((result) => addList2(result))
@@ -184,7 +182,6 @@
       redirect: "follow",
     };
 
-    //fetch("http://localhost:8080/board/deleteone", requestOptions)
     fetch(BACKEND_URL + "/board/deleteone", requestOptions)
       .then((response) => response.text())
       .then((result) => {
@@ -218,7 +215,6 @@
       redirect: "follow",
     };
 
-    //fetch("http://localhost:8080/board/insertlist", requestOptions)
     fetch(BACKEND_URL + "/board/insertlist", requestOptions)
       .then((response) => response.text())
       .then((result) => {
