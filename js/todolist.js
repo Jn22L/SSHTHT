@@ -8,10 +8,6 @@
     BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
   }
 
-  console.log("BACKEND_URL:", BACKEND_URL);
-
-  BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com";
-
   // 추가
   function addList() {
     var contents = document.querySelector(".text-basic");
@@ -44,11 +40,8 @@
       list.removeChild(list.firstChild);
     }
 
-    console.log(typeof obj, obj[0].todoList);
-
     // 목록추가
     obj.map((v) => {
-      console.log(v.todoList);
       var tr = document.createElement("tr");
       var input = document.createElement("input");
       input.setAttribute("type", "checkbox");
@@ -158,8 +151,6 @@
 
   // DB 상세조회
   function selectOneList(selectKey) {
-    console.log("selectOneList");
-
     var requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -173,8 +164,6 @@
 
   // DB 삭제
   function deleteDB(deleteKey) {
-    console.log("deleteDB:" + deleteKey);
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({ todoDt: deleteKey });
@@ -247,6 +236,7 @@
     return result;
   }
 
+  // admin 체크
   const handleChange = (event) => {
     var btnSave = document.getElementById("btnSaveDB");
     var btnDel = document.querySelectorAll(".btn-del");
@@ -262,10 +252,8 @@
   // 이벤트
   document.getElementById("btnAdd").addEventListener("click", addList); // 추가
   document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
-  document.getElementById("inputAdd").addEventListener("input", handleChange);
-
+  document.getElementById("inputAdd").addEventListener("input", handleChange); // amdin 체크
   document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
-
   document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
   document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
   document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
