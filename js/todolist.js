@@ -65,6 +65,7 @@
   // 추가 - 엔터키
   function addListEnter(event) {
     const keyCode = event.keyCode;
+    console.log("addListEnter", event.target.value);
     if (keyCode == 13) {
       addList();
     }
@@ -242,9 +243,18 @@
     return result;
   }
 
+  const handleChange = (event) => {
+    console.log("handleChange", event.target.value);
+    if (event.target.value === "admin") {
+      document.getElementById("btnSaveDB").hidden = false;
+    }
+  };
+
   // 이벤트
   document.getElementById("btnAdd").addEventListener("click", addList); // 추가
   document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
+  document.getElementById("inputAdd").addEventListener("input", handleChange);
+
   document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
 
   document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
