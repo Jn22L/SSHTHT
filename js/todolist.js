@@ -17,6 +17,7 @@
     td01.appendChild(input);
     tr.appendChild(td01);
     var td02 = document.createElement("td");
+    td02.setAttribute("class", "todo-list-data");
     td02.innerHTML = contents.value;
     tr.appendChild(td02);
     document.getElementById("listBody").appendChild(tr);
@@ -45,6 +46,7 @@
       td01.appendChild(input);
       tr.appendChild(td01);
       var td02 = document.createElement("td");
+      td02.setAttribute("class", "todo-list-data");
       td02.innerHTML = v.todoList;
       tr.appendChild(td02);
       document.getElementById("listBody").appendChild(tr);
@@ -92,35 +94,20 @@
   }
 
   // DB 전체목록조회
-  function makeRequest() {
-    httpRequest = new XMLHttpRequest();
+  function selectToListAll() {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-    if (!httpRequest) {
-      alert("XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ");
-      return false;
-    }
-    httpRequest.onreadystatechange = alertContents;
-    httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/selectTodoList");
-    //httpRequest.open("GET", "http://localhost:8080/board/selectall");
-    httpRequest.send();
+    //fetch("http://localhost:8080/board/selectall", requestOptions)
+    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/selectall", requestOptions)
+      .then((response) => response.json())
+      .then((result) => selectAll(result))
+      .catch((error) => console.log("error", error));
   }
 
-  function alertContents() {
-    try {
-      if (httpRequest.readyState === XMLHttpRequest.DONE) {
-        if (httpRequest.status === 200) {
-          addSelectedList(JSON.parse(httpRequest.responseText));
-        } else {
-          alert("There was a problem with the request.");
-        }
-      }
-    } catch (e) {
-      alert("Caught Exception: " + e.description);
-    }
-  }
-
-  // DB 전체목록조회 결과 하단에 출력
-  function addSelectedList(jsonObj) {
+  function selectAll(jsonObj) {
     const ul = document.getElementById("dbSelectList");
     // 전체삭제
     while (ul.firstChild) {
@@ -129,37 +116,137 @@
     // 목록추가
     jsonObj.map((v) => {
       var li = document.createElement("li");
+
       var a = document.createElement("a");
       a.setAttribute("href", v.todoDt);
       a.innerHTML = v.todoDt + " " + v.todoList;
+
+      var btnDel = document.createElement("input");
+      btnDel.textContent = "삭제";
+      btnDel.setAttribute("type", "button");
+      btnDel.setAttribute("id", v.todoDt);
+      btnDel.setAttribute("value", "삭제");
+
       li.appendChild(a);
+      li.appendChild(btnDel);
       ul.appendChild(li);
     });
   }
 
-  // 하단 목록 클릭시, 상세 데이타 조회 ( POST text/plain )
+  // 하단 목록 클릭시, 상세 데이타 조회
   dbSelectList.addEventListener("click", (e) => {
-    //if (!e.target.matches("#navigation > li > a")) return;
     e.preventDefault();
-    href = e.target.getAttribute("href");
-
-    fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectOneList/${href}`);
-    //fetch(`http://localhost:8080/board/selectOneList/${href}`)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (myJson) {
-        addList2(myJson);
-      });
+    if (e.target.tagName === "A") {
+      selectOneList(e.target.getAttribute("href"));
+    } else if (e.target.tagName === "INPUT") {
+      if (window.confirm("삭제할까요?")) deleteDB(e.target.getAttribute("id"));
+    }
   });
+
+  // DB 상세조회
+  function selectOneList(selectKey) {
+    console.log("selectOneList");
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    //fetch(`http://localhost:8080/board/selectonelist?todoDt=${selectKey}`, requestOptions)
+    fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectonelist?todoDt=${selectKey}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => addList2(result))
+      .catch((error) => console.log("error", error));
+  }
+
+  // DB 삭제
+  function deleteDB(deleteKey) {
+    console.log("deleteDB:" + deleteKey);
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({ todoDt: deleteKey });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    //fetch("http://localhost:8080/board/deleteone", requestOptions)
+    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/deleteone", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        selectToListAll(); // 전체조회
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  // DB 저장
+  function saveDB() {
+    if (!window.confirm("저장할까요?")) return;
+
+    // 할일목록 배열저장
+    var todolist = document.querySelectorAll(".todo-list-data");
+    var insertArr = [];
+
+    todolist.forEach(function (val, idx) {
+      insertArr.push({ todoDt: getCurrentTime(), todoSeq: idx, todoList: val.textContent });
+    });
+
+    // REST 호출
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify(insertArr);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    //fetch("http://localhost:8080/board/insertlist", requestOptions)
+    fetch("https://sshtht-springboot-mariadb.herokuapp.com/board/insertlist", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        selectToListAll(); // 전체조회
+      })
+      .catch((error) => console.log("error", error));
+  }
+
+  // 현재시간（yyyy/mm/dd hh:mm:ss）
+  function getCurrentTime() {
+    var now = new Date();
+    var res =
+      "" + now.getFullYear() + "/" + padZero(now.getMonth() + 1) + "/" + padZero(now.getDate()) + " " + padZero(now.getHours()) + ":" + padZero(now.getMinutes()) + ":" + padZero(now.getSeconds());
+    return res;
+  }
+
+  // 현재시간 lpad 0
+  function padZero(num) {
+    var result;
+    if (num < 10) {
+      result = "0" + num;
+    } else {
+      result = "" + num;
+    }
+    return result;
+  }
 
   // 이벤트
   document.getElementById("btnAdd").addEventListener("click", addList); // 추가
   document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
+  document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
+
   document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
   document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
   document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
 
   // 최초 로딩시 : 하단에 목록 출력
-  makeRequest();
+  selectToListAll();
 })();
