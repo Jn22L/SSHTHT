@@ -10,6 +10,8 @@
 
   console.log("BACKEND_URL:", BACKEND_URL);
 
+  BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com";
+
   // 추가
   function addList() {
     var contents = document.querySelector(".text-basic");
@@ -65,7 +67,7 @@
   // 추가 - 엔터키
   function addListEnter(event) {
     const keyCode = event.keyCode;
-    console.log("addListEnter", event.target.value);
+
     if (keyCode == 13) {
       addList();
     }
@@ -134,6 +136,8 @@
       btnDel.textContent = "삭제";
       btnDel.setAttribute("type", "button");
       btnDel.setAttribute("id", v.todoDt);
+      btnDel.setAttribute("class", "btn-del");
+      btnDel.setAttribute("hidden", "true");
       btnDel.setAttribute("value", "삭제");
 
       li.appendChild(a);
@@ -244,9 +248,14 @@
   }
 
   const handleChange = (event) => {
-    console.log("handleChange", event.target.value);
+    var btnSave = document.getElementById("btnSaveDB");
+    var btnDel = document.querySelectorAll(".btn-del");
     if (event.target.value === "admin") {
-      document.getElementById("btnSaveDB").hidden = false;
+      btnSave.hidden = false;
+      if (btnDel.length > 0) btnDel.forEach((v) => (v.hidden = false));
+    } else {
+      btnSave.hidden = true;
+      if (btnDel.length > 0) btnDel.forEach((v) => (v.hidden = true));
     }
   };
 
