@@ -100,8 +100,8 @@
       return false;
     }
     httpRequest.onreadystatechange = alertContents;
-    //httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/selectTodoList");
-    httpRequest.open("GET", "http://localhost:8080/board/selectall");
+    httpRequest.open("GET", "https://sshtht-springboot-mariadb.herokuapp.com/board/selectTodoList");
+    //httpRequest.open("GET", "http://localhost:8080/board/selectall");
     httpRequest.send();
   }
 
@@ -143,8 +143,8 @@
     e.preventDefault();
     href = e.target.getAttribute("href");
 
-    //fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectOneList/${href}`)
-    fetch(`http://localhost:8080/board/selectOneList/${href}`)
+    fetch(`https://sshtht-springboot-mariadb.herokuapp.com/board/selectOneList/${href}`);
+    //fetch(`http://localhost:8080/board/selectOneList/${href}`)
       .then(function (response) {
         return response.json();
       })
