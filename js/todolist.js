@@ -8,7 +8,7 @@
   }
 
   // 로컬 백엔드 수정시 주석필요!
-  BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
+  //BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
 
   // 추가
   function addList() {
@@ -241,13 +241,7 @@
 
   // 현재시간 lpad 0
   function padZero(num) {
-    var result;
-    if (num < 10) {
-      result = "0" + num;
-    } else {
-      result = "" + num;
-    }
-    return result;
+    return num < 10 ? `0${num}` : num;
   }
 
   // admin 체크
