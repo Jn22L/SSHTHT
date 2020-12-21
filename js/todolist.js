@@ -258,16 +258,20 @@
     }
   };
 
-  // 이벤트
-  document.getElementById("btnAdd").addEventListener("click", addList); // 추가
-  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // input 엔터
-  document.getElementById("inputAdd").addEventListener("input", handleChange); // admin 체크
-  document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
-  document.getElementById("dbSelectList").addEventListener("click", handleBottomClick); // 하단 목록 클릭 ( DB상세조회, DB삭제 )
-  document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
-  document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
-  document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
+  function init() {
+    // 이벤트
+    document.getElementById("btnAdd").addEventListener("click", addList); // 추가
+    document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // input 엔터
+    document.getElementById("inputAdd").addEventListener("input", handleChange); // admin 체크
+    document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
+    document.getElementById("dbSelectList").addEventListener("click", handleBottomClick); // 하단 목록 클릭 ( DB상세조회, DB삭제 )
+    document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
+    document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
+    document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
 
-  // 최초 로딩시 하단에 목록 출력
-  selectToListAll();
+    // 최초 로딩시 하단에 목록 출력
+    selectToListAll();
+  }
+
+  init();
 })();
