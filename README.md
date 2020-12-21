@@ -9,7 +9,6 @@
 - 일단 스프링부트에 hikariCP 관련 설정 2줄 추가해봄
   - spring.datasource.hikari.maxLifetime=600000
   - spring.datasource.hikari.maximumPoolSize=9
-- 추가했는데도, 스프링부트에서 계속발생함;;;
 
 ## 2020-12-20 DB저장/삭제 기능추가
 - DB저장 / 삭제기능 추가
