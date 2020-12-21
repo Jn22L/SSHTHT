@@ -8,7 +8,7 @@
   }
 
   // 로컬 백엔드 수정시 주석필요!
-  //BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
+  BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
 
   // 추가
   function addList() {
@@ -139,12 +139,14 @@
       a.setAttribute("href", v.todoDt);
       a.innerHTML = v.todoDt + " " + v.todoList;
 
+      let inputAdd = document.getElementById("inputAdd");
+      console.log("=====inputAdd.value", inputAdd.value, typeof inputAdd.value);
       var btnDel = document.createElement("input");
       btnDel.textContent = "삭제";
       btnDel.setAttribute("type", "button");
       btnDel.setAttribute("id", v.todoDt);
       btnDel.setAttribute("class", "btn-del");
-      btnDel.setAttribute("hidden", "true");
+      inputAdd.value === "admin" ? (btnDel.hidden = false) : (btnDel.hidden = true); // admin 이면 삭제버튼 유지
       btnDel.setAttribute("value", "삭제");
 
       li.appendChild(a);
