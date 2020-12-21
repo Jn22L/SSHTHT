@@ -141,12 +141,11 @@
 
       let inputAdd = document.getElementById("inputAdd");
       var btnDel = document.createElement("input");
-      btnDel.textContent = "삭제";
       btnDel.setAttribute("type", "button");
       btnDel.setAttribute("id", v.todoDt);
       btnDel.setAttribute("class", "btn-del");
       inputAdd.value === "admin" ? (btnDel.hidden = false) : (btnDel.hidden = true); // admin 이면 삭제버튼 유지
-      btnDel.setAttribute("value", "삭제");
+      btnDel.value = "❌";
 
       li.appendChild(a);
       li.appendChild(btnDel);
