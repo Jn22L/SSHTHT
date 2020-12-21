@@ -41,7 +41,8 @@
       progress.innerHTML = i;
     } while (i % 1e3 != 0);
 
-    if (i < 1e6) {
+    if (i < 1e5) {
+      //count(); //
       setTimeout(count); // 지연시간 0 인 setTimeout 을 추가
     }
   }
