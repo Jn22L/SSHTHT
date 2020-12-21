@@ -1,5 +1,4 @@
 (function () {
-  const dbSelectList = document.getElementById("dbSelectList");
   let BACKEND_URL = "";
 
   if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
@@ -7,6 +6,9 @@
   } else {
     BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
   }
+
+  // 로컬 백엔드 수정시 주석필요!
+  BACKEND_URL = "https://sshtht-springboot-mariadb.herokuapp.com"; // 깃허브일때 -> HEROKU
 
   // 추가
   function addList() {
@@ -106,7 +108,19 @@
     };
 
     fetch(BACKEND_URL + "/board/selectall", requestOptions)
-      .then((response) => response.json())
+      //.then((response) => response.json())
+      .then(
+        (successResponse) => {
+          if (successResponse.status != 200) {
+            return null;
+          } else {
+            return successResponse.json();
+          }
+        },
+        (failResponse) => {
+          return null;
+        }
+      )
       .then((result) => selectAll(result))
       .catch((error) => console.log("error", error));
   }
@@ -140,14 +154,14 @@
   }
 
   // 하단 목록 이벤트 ( DB 상세조회 / DB 삭제 )
-  dbSelectList.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (e.target.tagName === "A") {
-      selectOneList(e.target.getAttribute("href"));
-    } else if (e.target.tagName === "INPUT") {
-      if (window.confirm("삭제할까요?")) deleteDB(e.target.getAttribute("id"));
+  function handleBottomClick(event) {
+    event.preventDefault();
+    if (event.target.tagName === "A") {
+      selectOneList(event.target.getAttribute("href"));
+    } else if (event.target.tagName === "INPUT") {
+      if (window.confirm("삭제할까요?")) deleteDB(event.target.getAttribute("id"));
     }
-  });
+  }
 
   // DB 상세조회
   function selectOneList(selectKey) {
@@ -251,13 +265,14 @@
 
   // 이벤트
   document.getElementById("btnAdd").addEventListener("click", addList); // 추가
-  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // 추가 - 엔터키
-  document.getElementById("inputAdd").addEventListener("input", handleChange); // amdin 체크
+  document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // input 엔터
+  document.getElementById("inputAdd").addEventListener("input", handleChange); // admin 체크
   document.getElementById("btnSaveDB").addEventListener("click", saveDB); // DB저장
+  document.getElementById("dbSelectList").addEventListener("click", handleBottomClick); // 하단 목록 클릭 ( DB상세조회, DB삭제 )
   document.getElementById("btnDelAll").addEventListener("click", delAllEle); // 전체삭제
   document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
   document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
 
-  // 최초 로딩시 : 하단에 목록 출력
+  // 최초 로딩시 하단에 목록 출력
   selectToListAll();
 })();
