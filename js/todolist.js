@@ -140,7 +140,6 @@
       a.innerHTML = v.todoDt + " " + v.todoList;
 
       let inputAdd = document.getElementById("inputAdd");
-      console.log("=====inputAdd.value", inputAdd.value, typeof inputAdd.value);
       var btnDel = document.createElement("input");
       btnDel.textContent = "삭제";
       btnDel.setAttribute("type", "button");
