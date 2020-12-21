@@ -3,12 +3,13 @@
 - 화면 : <https://jn22l.github.io/sshtht>
 
 ## 2020-12-21 hikariCP 설정추가
-- Heroku MariaDB 에서 max_connection 에러발생
+- Heroku MariaDB 에서 max_user_connections 에러발생
 - addon 에서 db password reset 해주면 일단 해결은 됨
 - 접속자도 없는데 계속 커넥션이 풀나는게 좀 이상함
 - 일단 스프링부트에 hikariCP 관련 설정 2줄 추가해봄
   - spring.datasource.hikari.maxLifetime=600000
   - spring.datasource.hikari.maximumPoolSize=9
+- 추가했는데도, 스프링부트에서 계속발생함;;;
 
 ## 2020-12-20 DB저장/삭제 기능추가
 - DB저장 / 삭제기능 추가
