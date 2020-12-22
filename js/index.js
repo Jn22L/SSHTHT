@@ -4,8 +4,7 @@
     "/home": "./pages/home.html",
     "/formvali": "./pages/formvali.html",
     "/todo": "./pages/todolist.html",
-    "/closure": "./pages/closure_test.html",
-    "/pushstate": "./pages/pushstate.html",
+    "/oauth2": "./pages/oauth2.html",
   };
 
   function goMenu(path, route) {
