@@ -232,16 +232,14 @@
   }
 
   // 현재시간（yyyy/mm/dd hh:mm:ss）
+  function padZero(num) {
+    return num < 10 ? `0${num}` : num;
+  }
   function getCurrentTime() {
     var now = new Date();
     var res =
       "" + now.getFullYear() + "/" + padZero(now.getMonth() + 1) + "/" + padZero(now.getDate()) + " " + padZero(now.getHours()) + ":" + padZero(now.getMinutes()) + ":" + padZero(now.getSeconds());
     return res;
-  }
-
-  // 현재시간 lpad 0
-  function padZero(num) {
-    return num < 10 ? `0${num}` : num;
   }
 
   // admin 체크
@@ -258,7 +256,6 @@
   };
 
   function init() {
-    // 이벤트
     document.getElementById("btnAdd").addEventListener("click", addList); // 추가
     document.getElementById("inputAdd").addEventListener("keydown", addListEnter); // input 엔터
     document.getElementById("inputAdd").addEventListener("input", handleChange); // admin 체크
@@ -268,7 +265,6 @@
     document.getElementById("btnDelLast").addEventListener("click", delLastEle); // 마지막 요소 삭제
     document.getElementById("DeleteSel").addEventListener("click", delSelected); // 선택 삭제
 
-    // 최초 로딩시 하단에 목록 출력
     selectToListAll();
   }
 
