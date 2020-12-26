@@ -1,23 +1,59 @@
 (() => {
   const goGoogleAuthPage = document.querySelector("#go_auth");
+  const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
 
+  // 인증페이지 이동
   const handleGoGoogleAuthPage = (e) => {
     e.preventDefault();
-    let scope = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly";
 
-    window.location.href =
-      "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A%2F%2F127.0.0.1%3A5500%2Fpages%2Foauth2_redirect.html&client_id=918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com";
+    const base_url = "https://accounts.google.com/o/oauth2/v2/auth";
+
+    const params = new URLSearchParams();
+    params.append("scope", "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly");
+    params.append("access_type", "offline");
+    params.append("include_granted_scopes", "true");
+    params.append("response_type", "code");
+    params.append("state", "state_parameter_passthrough_value");
+    params.append("redirect_uri", "http://127.0.0.1:5500/pages/oauth2_redirect.html");
+    params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
+
+    const full_url = base_url + "?" + params.toString();
+    window.location.href = full_url;
   };
 
+  // 구글 calendar 가져오기
+  const handleGoogleCalendar = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    var access_token = document.querySelector("input[name=access_token]").value;
+    var divGoogleCalendar = document.querySelector("#divGoogleCalendar");
+
+    fetch(`https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=${access_token}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result.items);
+        result.items.map((element) => {
+          divGoogleCalendar.innerHTML = divGoogleCalendar.innerHTML + `${element.summary}<br>`;
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
   const init = () => {
     goGoogleAuthPage.addEventListener("click", handleGoGoogleAuthPage);
-    //app.innerHTML = "OAuth2 사용하여 구글 인증해 보자 천천히 해보자 ~ ";
+    btnGoogleCalendar.addEventListener("click", handleGoogleCalendar);
+
+    const access_token = new URLSearchParams(location.search).get("access_token");
+    document.querySelector("input[name=access_token]").value = access_token;
   };
 
   init();
 })();
 
 /* 2. accessToken 얻기
+
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 var urlencoded = new URLSearchParams();
@@ -44,9 +80,11 @@ fetch("https://www.googleapis.com/oauth2/v4/token", requestOptions)
     "scope": "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar",
     "token_type": "Bearer"
 }
-  */
+
+*/
 
 /* 3. refresh token 으로 accessToken 얻기 : 사용자 인증이 최초일때 refresh_token 은 1번만 리턴된다.
+
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 var urlencoded = new URLSearchParams();
@@ -65,4 +103,4 @@ fetch("https://www.googleapis.com/oauth2/v4/token", requestOptions)
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
   
-  */
+*/
