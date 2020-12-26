@@ -21,6 +21,13 @@
       <input id="getAccessToken" type="submit" value="access_token 얻기" />
     </form>
     <script>
+      let FRONTEND_URL = "";
+      if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
+        FRONTEND_URL = "http://127.0.0.1:5500"; // 로컬
+      } else {
+        FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
+      }
+
       // access_token 얻기
       function handelSudmit(event) {
         event.preventDefault();
@@ -31,7 +38,7 @@
         urlencoded.append("code", auth_code);
         urlencoded.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
         urlencoded.append("client_secret", "lOiDZwgIeViwyL8fS0sYAh4A");
-        urlencoded.append("redirect_uri", `${location.origin}/pages/oauth2_redirect.html`);
+        urlencoded.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_redirect.html`);
         urlencoded.append("grant_type", "authorization_code");
 
         var requestOptions = {
@@ -47,7 +54,7 @@
             const ret = JSON.parse(result);
             document.querySelector("input[name=access_token]").value = ret.access_token;
             if (window.confirm("access_token 을 성공적으로 얻었습니다. 최초 화면으로 돌아갑니다.")) {
-              window.location.href = `http://127.0.0.1:5500/index.html?page=oauth2&access_token=${ret.access_token}`;
+              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2&access_token=${ret.access_token}`;
             }
           })
           .catch((error) => console.log("error", error));

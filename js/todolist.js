@@ -1,6 +1,5 @@
 (function () {
   let BACKEND_URL = "";
-
   if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
     BACKEND_URL = "http://localhost:8080"; // 로컬
   } else {

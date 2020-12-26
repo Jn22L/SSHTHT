@@ -1,4 +1,11 @@
 (() => {
+  let FRONTEND_URL = "";
+  if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
+    FRONTEND_URL = "http://127.0.0.1:5500"; // 로컬
+  } else {
+    FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
+  }
+
   const goGoogleAuthPage = document.querySelector("#go_auth");
   const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
 
@@ -14,7 +21,7 @@
     params.append("include_granted_scopes", "true");
     params.append("response_type", "code");
     params.append("state", "state_parameter_passthrough_value");
-    params.append("redirect_uri", `${location.origin}/pages/oauth2_redirect.html`);
+    params.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_redirect.html`);
     params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
 
     const full_url = base_url + "?" + params.toString();
