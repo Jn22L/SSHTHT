@@ -2,7 +2,7 @@
   const goGoogleAuthPage = document.querySelector("#go_auth");
   const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
 
-  // 인증페이지 이동
+  // 1. 인증페이지 이동
   const handleGoGoogleAuthPage = (e) => {
     e.preventDefault();
 
@@ -14,7 +14,7 @@
     params.append("include_granted_scopes", "true");
     params.append("response_type", "code");
     params.append("state", "state_parameter_passthrough_value");
-    params.append("redirect_uri", "http://127.0.0.1:5500/pages/oauth2_redirect.html");
+    params.append("redirect_uri", `${location.origin}/pages/oauth2_redirect.html`);
     params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
 
     const full_url = base_url + "?" + params.toString();
@@ -41,7 +41,10 @@
       })
       .catch((error) => console.log("error", error));
   };
+
   const init = () => {
+    //alert(location.origin);
+
     goGoogleAuthPage.addEventListener("click", handleGoGoogleAuthPage);
     btnGoogleCalendar.addEventListener("click", handleGoogleCalendar);
 
