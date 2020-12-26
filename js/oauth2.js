@@ -67,7 +67,7 @@
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        divGoogleUserInfo.innerHTML = result.given_name + result.family_name;
+        divGoogleUserInfo.innerHTML = result.name;
       })
       .catch((error) => console.log("error", error));
   };
