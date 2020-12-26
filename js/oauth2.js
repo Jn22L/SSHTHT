@@ -1,7 +1,21 @@
 (() => {
   const app = document.querySelector("#app-oauth2");
   const init = () => {
-    app.innerHTML = "OAuth2 사용하여 구글 인증해 보자 천천히 해보자 ~ ";
+    new Promise((resolve, reject) => {
+      console.log("Initial");
+      resolve();
+    })
+      .then(() => {
+        throw new Error("Something failed");
+
+        console.log("Do this");
+      })
+      .catch(() => {
+        console.log("Do that");
+      })
+      .then(() => {
+        console.log("Do this, whatever happened before");
+      });
   };
 
   init();
