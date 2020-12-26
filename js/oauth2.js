@@ -8,6 +8,7 @@
 
   const goGoogleAuthPage = document.querySelector("#go_auth");
   const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
+  const btnGoogleUserInfo = document.querySelector("#btnGoogleUserInfo");
 
   // 1. 인증페이지 이동
   const handleGoGoogleAuthPage = (e) => {
@@ -16,7 +17,10 @@
     const base_url = "https://accounts.google.com/o/oauth2/v2/auth";
 
     const params = new URLSearchParams();
-    params.append("scope", "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly");
+    params.append(
+      "scope",
+      "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+    );
     params.append("access_type", "offline");
     params.append("include_granted_scopes", "true");
     params.append("response_type", "code");
@@ -49,11 +53,31 @@
       .catch((error) => console.log("error", error));
   };
 
+  // 구글 userinfo 가져오기
+  const handleGoogleUserInfo = () => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    var access_token = document.querySelector("input[name=access_token]").value;
+    var divGoogleUserInfo = document.querySelector("#divGoogleUserInfo");
+
+    fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        divGoogleUserInfo.innerHTML = result.given_name + result.family_name;
+      })
+      .catch((error) => console.log("error", error));
+  };
+
   const init = () => {
     //alert(location.origin);
 
     goGoogleAuthPage.addEventListener("click", handleGoGoogleAuthPage);
-    btnGoogleCalendar.addEventListener("click", handleGoogleCalendar);
+    btnGoogleCalendar.addEventListener("click", handleGoogleCalendar); // 구글 calendar
+    btnGoogleUserInfo.addEventListener("click", handleGoogleUserInfo); // 구글 사용자정보
 
     const access_token = new URLSearchParams(location.search).get("access_token");
     document.querySelector("input[name=access_token]").value = access_token;
