@@ -15,9 +15,10 @@
 
 3. 2번에서 받은 code 값으로 access_token 얻기(POST)
 
-4. refresh_token 으로 access_token 얻기(POST)
+4. access_token 으로 사용자정보 가져오기(GET)
 
-5. access_token 으로 사용자정보 가져오기(GET)
+5. access_token 만료시 refresh_token 으로 access_token 얻기(POST)
+
 
 ## 2020-12-21 hikariCP 설정추가
 
