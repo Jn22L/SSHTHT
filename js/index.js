@@ -35,6 +35,7 @@
     //oauth2 redirect uri 처리 ( http://127.0.0.1:5500/oauth2_redirect )
     const page = new URLSearchParams(location.search).get("page");
     const access_token = new URLSearchParams(location.search).get("access_token");
+    const refresh_token = new URLSearchParams(location.search).get("refresh_token");
     if (page === "oauth2") {
       console.log(access_token);
       goMenu("/oauth2", "./pages/oauth2.html");
