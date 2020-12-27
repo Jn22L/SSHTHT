@@ -19,6 +19,8 @@
 
 5. access_token 만료시 refresh_token 으로 access_token 얻기(POST)
 
+9. 상세 : <https://jn22l.github.io/oauth2/>
+
 
 ## 2020-12-21 hikariCP 설정추가
 
