@@ -2,7 +2,25 @@
 
 - 화면 : <https://jn22l.github.io/sshtht>
 
+## 2020-12-27 구글 OAuth2.0 연동하여, 사용자정보 및 캘린더 정보 가져오기
+
+0. 구글 클라이언트 ID / SECRET 얻기 + SCOPE 설정
+
+- 구글 cloud console > API 및 서비스
+- https://console.cloud.google.com/
+
+1. 구글 인증페이지 이동(GET) 만들기
+
+2. 인증페이지에서 인증되면, code 값이 리다이렉트 되는 url(GET)
+
+3. 2번에서 받은 code 값으로 access_token 얻기(POST)
+
+4. refresh_token 으로 access_token 얻기(POST)
+
+5. access_token 으로 사용자정보 가져오기(GET)
+
 ## 2020-12-21 hikariCP 설정추가
+
 - Heroku MariaDB 에서 max_user_connections 에러발생
 - addon 에서 db password reset 해주면 일단 해결은 됨
 - 접속자도 없는데 계속 커넥션이 풀나는게 좀 이상함
@@ -11,6 +29,7 @@
   - spring.datasource.hikari.maximumPoolSize=9
 
 ## 2020-12-20 DB저장/삭제 기능추가
+
 - DB저장 / 삭제기능 추가
 - heroku 배포했으나, select시 계속 에러발생
   - application Java 에 루트 / 추가하여 배포하니 작동함

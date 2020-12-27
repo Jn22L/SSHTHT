@@ -30,6 +30,7 @@
     params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
 
     const full_url = base_url + "?" + params.toString();
+    console.log("구글인증페이지로 이동", full_url);
     window.location.href = full_url;
   };
 
