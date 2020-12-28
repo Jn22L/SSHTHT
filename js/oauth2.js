@@ -15,12 +15,14 @@
   const handleGoGoogleAuthPage = (e) => {
     e.preventDefault();
 
-    const base_url = "https://accounts.google.com/o/oauth2/v2/auth";
-
-    const params = new URLSearchParams();
+    const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+    const params = authUrl.searchParams;
     params.append(
       "scope",
-      "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+      "https://www.googleapis.com/auth/calendar" +
+        " https://www.googleapis.com/auth/calendar.readonly" +
+        " https://www.googleapis.com/auth/plus.login" +
+        " https://www.googleapis.com/auth/userinfo.email"
     );
     params.append("access_type", "offline");
     params.append("include_granted_scopes", "true");
@@ -28,10 +30,7 @@
     params.append("state", "state_parameter_passthrough_value");
     params.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_redirect.html`);
     params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
-
-    const full_url = base_url + "?" + params.toString();
-    console.log("구글인증페이지로 이동", full_url);
-    window.location.href = full_url;
+    window.location.href = authUrl;
   };
 
   // 2. code 로 access_token 얻기 -> oauth2_redirect.html 에서 정의
