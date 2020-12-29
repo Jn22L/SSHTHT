@@ -1,10 +1,10 @@
 (() => {
-  /*
+  /**
    *
    * GET 요청 ( JSON 리턴 )
    *
    */
-  const handleBtnGet = () => {
+  function handleBtnGet() {
     console.log("GET 요청 ( JSON 리턴 )");
 
     const ulGet = document.querySelector("#ulGet");
@@ -27,14 +27,14 @@
         ulGet.innerHTML = addHtml;
       })
       .catch((error) => console.log("error", error));
-  };
+  }
 
-  /*
+  /**
    *
    * POST 요청 ( json )
    *
    */
-  const handleBtnPostJson = () => {
+  function handleBtnPostJson() {
     console.log("POST 요청 ( json )");
 
     const ret = document.querySelector("#ret");
@@ -58,14 +58,14 @@
         ret.innerHTML = result;
       })
       .catch((error) => console.log("error", error));
-  };
+  }
 
-  /*
+  /**
    *
    * POST 요청 ( x-www-form-urlencoded )
    *
    */
-  const handleBtnPostForm = () => {
+  function handleBtnPostForm() {
     console.log("POST 요청 ( x-www-form-urlencoded )");
 
     const myHeaders = new Headers();
@@ -90,14 +90,14 @@
         ret.innerHTML = result;
       })
       .catch((error) => console.log("error", error));
-  };
+  }
 
-  /*
+  /**
    *
    * init
    *
    */
-  const init = () => {
+  function init() {
     const btnGet = document.querySelector("#btnGet");
     const btnPostJson = document.querySelector("#btnPostJson");
     const btnPostForm = document.querySelector("#btnPostForm");
@@ -105,7 +105,7 @@
     btnGet.addEventListener("click", handleBtnGet);
     btnPostJson.addEventListener("click", handleBtnPostJson);
     btnPostForm.addEventListener("click", handleBtnPostForm);
-  };
+  }
 
   init();
 })();
