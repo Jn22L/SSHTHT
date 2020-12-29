@@ -85,7 +85,10 @@
 
     fetch("https://jsonplaceholder.typicode.com/posts", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        ret.innerHTML = result;
+      })
       .catch((error) => console.log("error", error));
   };
 
