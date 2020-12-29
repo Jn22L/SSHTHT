@@ -8,7 +8,6 @@
     console.log("GET 요청 ( JSON 리턴 )");
 
     const ulGet = document.querySelector("#ulGet");
-    const ret = document.querySelector("#ret");
 
     let addHtml = "";
     let userId = "3";
@@ -17,6 +16,7 @@
       method: "GET",
       redirect: "follow",
     };
+
     fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -37,6 +37,8 @@
   const handleBtnPostJson = () => {
     console.log("POST 요청 ( json )");
 
+    const ret = document.querySelector("#ret");
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -51,7 +53,10 @@
 
     fetch("https://jsonplaceholder.typicode.com/posts", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        ret.innerHTML = result;
+      })
       .catch((error) => console.log("error", error));
   };
 

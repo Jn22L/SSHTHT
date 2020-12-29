@@ -5,6 +5,7 @@
     "/formvali": "./pages/formvali.html",
     "/todo": "./pages/todolist.html",
     "/oauth2": "./pages/oauth2.html",
+    "/fetchExample": "./pages/fetch_example.html",
   };
 
   function goMenu(path, route) {
