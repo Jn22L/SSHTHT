@@ -16,7 +16,7 @@
   const btnLogout = document.querySelector("#btnLogout");
   const btnUnlink = document.querySelector("#btnUnlink");
 
-  const USER_ACCESS_TOKEN = "Z6-rROF_7TeGvItXZsebTK8Y2VRBiZ3rPt9iGAo9dNoAAAF2tzdyxw";
+  const USER_ACCESS_TOKEN = "-BIYyPyezhzeve9V-q1Y7gtOCEpMF8sNMad0ZAo9dBEAAAF2t1v87Q";
 
   // 1. KAKAO 인증페이지 이동
   const handleGoGoogleAuthPage = (e) => {
@@ -35,7 +35,7 @@
       Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
     }
     Kakao.Auth.authorize({
-      redirectUri: "http://127.0.0.1:5500/redirect.html",
+      redirectUri: "http://127.0.0.1:5500/pages/oauth2_kakao_redirect.html",
       scope: "friends",
     });
   };

@@ -4,7 +4,8 @@
     "/home": "./pages/home.html",
     "/formvali": "./pages/formvali.html",
     "/todo": "./pages/todolist.html",
-    "/oauth2": "./pages/oauth2.html",
+    "/oauth2Google": "./pages/oauth2.html",
+    "/oauth2Kakao": "./pages/oauth2_kakao.html",
     "/fetchExample": "./pages/fetch_example.html",
   };
 

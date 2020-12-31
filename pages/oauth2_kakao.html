@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>OAuth2 구글</title>
     <script src="https://developers.kakao.com/sdk/js/kakao.js" defer></script>
-    <script src="./test.js" defer></script>
+    <script src="./js/oauth2_kakao.js" defer></script>
   </head>
   <body>
     <style>
@@ -13,7 +13,16 @@
       }
     </style>
     <div id="oauth2">
-      TEST
+      KAKAO API 테스트 <br />
+      로그인OK <br />
+      나에게메시지보내기OK <br />
+      친구목록(scope=friends)는 동적으로 가져와야 함(이용중 동의)<br />
+      -> SDK 사용하면 최초 인증시 인자로 쉽게 가져올 수 있다.<br />
+      친구목록가져오기 : 오류는없으나 목록이 0 -> 카톡메일이 아닌가? <br />
+      -> 추후 팀원 추가하여 테스트 해보자 <br />
+      [오류참조] https://devtalk.kakao.com/t/restapi-0/82496/2 <br />
+      일단 여기까지만 하고 마무리.<br />
+
       <div id="app-oauth2">
         <a href="#" id="go_auth">API를 사용할 수 있도록 허용하러 가기</a><br />
         access_token:<input type="text" name="access_token" /><br />

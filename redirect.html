@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Insert title here</title>
+    <style>
+      span.label {
+        width: 110px;
+        display: inline-block;
+      }
+      input {
+        width: 300px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="POST">
+      <span class="label">code:</span><span><input type="text" name="code" /></span> <br />
+      <span class="label">access_token:</span><span><input type="text" name="access_token" /></span> <br />
+      <span class="label">refresh_token:</span><span><input type="text" name="refresh_token" /></span> <br />
+      <input id="getAccessToken" type="submit" value="access_token 얻기" />
+    </form>
+    <script>
+      let FRONTEND_URL = "";
+      if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
+        FRONTEND_URL = "http://127.0.0.1:5500"; // 로컬
+      } else {
+        FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
+      }
+
+      // access_token 얻기
+      function handelSudmit(event) {
+        event.preventDefault();
+
+        const auth_code = document.querySelector("input[name=code]").value;
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("grant_type", "authorization_code");
+        urlencoded.append("client_id", "f65857604d13f09a40b0122c2bbc7d94");
+        urlencoded.append("redirect_uri", `${FRONTEND_URL}/redirect.html`);
+        urlencoded.append("code", auth_code);
+        //urlencoded.append("client_secret", "lOiDZwgIeViwyL8fS0sYAh4A");
+
+        var requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: urlencoded,
+          redirect: "follow",
+        };
+        fetch("https://kauth.kakao.com/oauth/token", requestOptions)
+          .then((response) => response.text())
+          .then((result) => {
+            console.log(result);
+            const ret = JSON.parse(result);
+            document.querySelector("input[name=access_token]").value = ret.access_token;
+            document.querySelector("input[name=refresh_token]").value = ret.refresh_token;
+            if (window.confirm("access_token 을 성공적으로 얻었습니다. 최초 화면으로 돌아갑니다.")) {
+              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2&access_token=${ret.access_token}&refresh_token=${ret.refresh_token}`;
+            }
+          })
+          .catch((error) => console.log("error", error));
+      }
+
+      function init() {
+        // 구글로부터 받은 인증 code 를 input 란에 셋팅
+        document.querySelector("input[name=code]").value = new URLSearchParams(location.search).get("code");
+        document.querySelector("#getAccessToken").addEventListener("click", handelSudmit);
+      }
+      init();
+    </script>
+  </body>
+</html>
