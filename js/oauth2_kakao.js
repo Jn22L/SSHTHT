@@ -35,7 +35,7 @@
       Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
     }
     Kakao.Auth.authorize({
-      redirectUri: "http://127.0.0.1:5500/pages/oauth2_kakao_redirect.html",
+      redirectUri: `${FRONTEND_URL}/pages/oauth2_kakao_redirect.html`,
       scope: "friends",
     });
   };
