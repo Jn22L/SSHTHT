@@ -1,4 +1,5 @@
 (() => {
+  // 로컬 VS 깃헙 URL 설정
   let FRONTEND_URL = "";
   if (window.location.host.indexOf("localhost") > -1 || window.location.host.indexOf("127.0.0.1") > -1) {
     FRONTEND_URL = "http://127.0.0.1:5500"; // 로컬
@@ -6,14 +7,7 @@
     FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
   }
 
-  const goKakaoAuthPage = document.querySelector("#go_auth");
-  const btnRefreshToken = document.querySelector("#btnRefreshToken");
-
-  const btnGetUserInfo = document.querySelector("#btnGetUserInfo");
-  const btnSendMsgMe = document.querySelector("#btnSendMsgMe");
-  const btnGetFriendsList = document.querySelector("#btnGetFriendsList");
-  const btnSendMsgFriend = document.querySelector("#btnSendMsgFriend");
-
+  // 결과 출력 div
   const divKakao = document.querySelector("#divKakao");
 
   /**
@@ -185,9 +179,16 @@
    *
    */
   const init = () => {
+    // 이벤트 정의
+    const goKakaoAuthPage = document.querySelector("#go_auth");
+    const btnRefreshToken = document.querySelector("#btnRefreshToken");
+    const btnGetUserInfo = document.querySelector("#btnGetUserInfo");
+    const btnSendMsgMe = document.querySelector("#btnSendMsgMe");
+    const btnGetFriendsList = document.querySelector("#btnGetFriendsList");
+    const btnSendMsgFriend = document.querySelector("#btnSendMsgFriend");
+
     goKakaoAuthPage.addEventListener("click", handleGoKakaoAuthPage); // 인증페이지 이동
     btnRefreshToken.addEventListener("click", handleRefreshToken); // refresh_token 으로 access_token 갱신
-
     btnGetUserInfo.addEventListener("click", handleGetUserInfo); // 로그인 사용자 정보
     btnSendMsgMe.addEventListener("click", handleSendMsgMe); // 나에게 메시지 보내기
     btnGetFriendsList.addEventListener("click", handleGetFriendsList); // 친구목록 가져오기
