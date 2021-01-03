@@ -4,7 +4,7 @@
     "/home": "./pages/home.html",
     "/formvali": "./pages/formvali.html",
     "/todo": "./pages/todolist.html",
-    "/oauth2Google": "./pages/oauth2.html",
+    "/oauth2Google": "./pages/oauth2_google.html",
     "/oauth2Kakao": "./pages/oauth2_kakao.html",
     "/fetchExample": "./pages/fetch_example.html",
   };
@@ -34,15 +34,14 @@
       console.log(path, routes[path]);
     });
 
-    //oauth2 redirect uri 처리 ( http://127.0.0.1:5500/oauth2_redirect )
+    //oauth2 redirect uri 처리
     const page = new URLSearchParams(location.search).get("page");
     const access_token = new URLSearchParams(location.search).get("access_token");
     const refresh_token = new URLSearchParams(location.search).get("refresh_token");
     switch (page) {
-      case "oauth2":
       case "oauth2Google":
         console.log("oauth2Google", access_token);
-        goMenu("/oauth2Google", "./pages/oauth2.html");
+        goMenu("/oauth2Google", "./pages/oauth2_google.html");
         break;
       case "oauth2Kakao":
         console.log("oauth2Kakao", access_token);
@@ -50,12 +49,6 @@
         break;
       default:
         console.log(`Sorry,`);
-    }
-
-    if (location.pathname === "oauth2_redirect") {
-      const google_auth_code = new URLSearchParams(location.search).get("code");
-      console.log("구글인증코드", google_auth_code);
-      //goMenu(path, routes[path]);
     }
   }
 

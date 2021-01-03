@@ -28,7 +28,7 @@
     params.append("include_granted_scopes", "true");
     params.append("response_type", "code");
     params.append("state", "state_parameter_passthrough_value");
-    params.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_redirect.html`);
+    params.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_google_redirect.html`);
     params.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
     window.location.href = authUrl;
   };

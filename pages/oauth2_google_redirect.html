@@ -38,7 +38,7 @@
         urlencoded.append("code", auth_code);
         urlencoded.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
         urlencoded.append("client_secret", "lOiDZwgIeViwyL8fS0sYAh4A");
-        urlencoded.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_redirect.html`);
+        urlencoded.append("redirect_uri", `${FRONTEND_URL}/pages/oauth2_google_redirect.html`);
         urlencoded.append("grant_type", "authorization_code");
 
         var requestOptions = {
@@ -55,7 +55,7 @@
             document.querySelector("input[name=access_token]").value = ret.access_token;
             document.querySelector("input[name=refresh_token]").value = ret.refresh_token;
             if (window.confirm("access_token 을 성공적으로 얻었습니다. 최초 화면으로 돌아갑니다.")) {
-              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2&access_token=${ret.access_token}&refresh_token=${ret.refresh_token}`;
+              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2Google&access_token=${ret.access_token}&refresh_token=${ret.refresh_token}`;
             }
           })
           .catch((error) => console.log("error", error));
