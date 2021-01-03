@@ -38,9 +38,18 @@
     const page = new URLSearchParams(location.search).get("page");
     const access_token = new URLSearchParams(location.search).get("access_token");
     const refresh_token = new URLSearchParams(location.search).get("refresh_token");
-    if (page === "oauth2") {
-      console.log(access_token);
-      goMenu("/oauth2", "./pages/oauth2.html");
+    switch (page) {
+      case "oauth2":
+      case "oauth2Google":
+        console.log("oauth2Google", access_token);
+        goMenu("/oauth2Google", "./pages/oauth2.html");
+        break;
+      case "oauth2Kakao":
+        console.log("oauth2Kakao", access_token);
+        goMenu("/oauth2Kakao", "./pages/oauth2_kakao.html");
+        break;
+      default:
+        console.log(`Sorry,`);
     }
 
     if (location.pathname === "oauth2_redirect") {

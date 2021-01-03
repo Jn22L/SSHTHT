@@ -55,7 +55,7 @@
             document.querySelector("input[name=access_token]").value = ret.access_token;
             document.querySelector("input[name=refresh_token]").value = ret.refresh_token;
             if (window.confirm("access_token 을 성공적으로 얻었습니다. 최초 화면으로 돌아갑니다.")) {
-              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2&access_token=${ret.access_token}&refresh_token=${ret.refresh_token}`;
+              window.location.href = `${FRONTEND_URL}/index.html?page=oauth2Kakao&access_token=${ret.access_token}&refresh_token=${ret.refresh_token}`;
             }
           })
           .catch((error) => console.log("error", error));

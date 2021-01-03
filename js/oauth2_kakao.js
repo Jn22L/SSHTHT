@@ -6,20 +6,22 @@
     FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
   }
 
-  const goGoogleAuthPage = document.querySelector("#go_auth");
+  const goKakaoAuthPage = document.querySelector("#go_auth");
   const btnRefreshToken = document.querySelector("#btnRefreshToken");
-  const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
-  const btnGoogleUserInfo = document.querySelector("#btnGoogleUserInfo");
 
-  const btnGoogleCalendar2 = document.querySelector("#btnGoogleCalendar2");
-  const btnGoogleUserInfo2 = document.querySelector("#btnGoogleUserInfo2");
-  const btnLogout = document.querySelector("#btnLogout");
-  const btnUnlink = document.querySelector("#btnUnlink");
+  const btnGetUserInfo = document.querySelector("#btnGetUserInfo");
+  const btnSendMsgMe = document.querySelector("#btnSendMsgMe");
+  const btnGetFriendsList = document.querySelector("#btnGetFriendsList");
+  const btnSendMsgFriend = document.querySelector("#btnSendMsgFriend");
 
-  const USER_ACCESS_TOKEN = "-BIYyPyezhzeve9V-q1Y7gtOCEpMF8sNMad0ZAo9dBEAAAF2t1v87Q";
+  const divKakao = document.querySelector("#divKakao");
 
-  // 1. KAKAO 인증페이지 이동
-  const handleGoGoogleAuthPage = (e) => {
+  /**
+   *
+   * 1. KAKAO 인증페이지 이동
+   *
+   */
+  const handleGoKakaoAuthPage = (e) => {
     e.preventDefault();
 
     // REST
@@ -36,13 +38,21 @@
     }
     Kakao.Auth.authorize({
       redirectUri: `${FRONTEND_URL}/pages/oauth2_kakao_redirect.html`,
-      scope: "friends",
+      scope: "friends", // 이용중 동의! ( 친구목록 )
     });
   };
 
-  // 2. code 로 access_token 얻기 -> oauth2_redirect.html 에서 정의
+  /**
+   *
+   * 2. code 로 access_token 얻기 -> oauth2_kakao_redirect.html 에서 정의
+   *
+   */
 
-  // 3. refresh_token 으로 access_token 갱신하기
+  /**
+   * 3. refresh_token 으로 access_token 갱신하기 ( access_token 만료시 )
+   *   - 카카오 토큰 만료시간
+   *     access_token : 6시간 , refresh_token : 2달
+   */
   const handleRefreshToken = (e) => {
     var refresh_token = document.querySelector("input[name=refresh_token]").value;
 
@@ -50,8 +60,8 @@
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", "918132959543-h23a9ui6pdc5072vfo45mf24d4hhdvon.apps.googleusercontent.com");
-    urlencoded.append("client_secret", "lOiDZwgIeViwyL8fS0sYAh4A");
+    urlencoded.append("client_id", "f65857604d13f09a40b0122c2bbc7d94");
+    //urlencoded.append("client_secret", "lOiDZwgIeViwyL8fS0sYAh4A");
     urlencoded.append("refresh_token", refresh_token);
     urlencoded.append("grant_type", "refresh_token");
 
@@ -62,18 +72,28 @@
       redirect: "follow",
     };
 
-    fetch("https://www.googleapis.com/oauth2/v4/token", requestOptions)
+    fetch("https://kauth.kakao.com/oauth/token", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log("refresh_token 으로 access_token 얻기", result);
         document.querySelector("input[name=access_token]").value = result.access_token;
-        alert("refresh_token 으로 access_token 을 성공적으로 얻었습니다.");
+        divKakao.innerHTML = `refresh_token 토큰으로 access_token 갱신 성공<br>
+             access_token: ${result.access_token}<br>
+             expires_in: ${result.expires_in}<br>
+             token_type: ${result.token_type}<br>
+          `;
       })
       .catch((error) => console.log("error", error));
   };
 
-  // KAKAO 사용자정보 가져오기
-  const handleGoogleCalendar = () => {
+  /**
+   *
+   * KAKAO 사용자정보 가져오기
+   *
+   */
+  const handleGetUserInfo = () => {
+    const USER_ACCESS_TOKEN = document.querySelector("input[name=access_token]").value;
+
     if (!Kakao.isInitialized()) {
       Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
     }
@@ -81,7 +101,8 @@
     Kakao.API.request({
       url: "/v2/user/me",
       success: function (response) {
-        console.log(response);
+        console.log("KAKAO 사용자정보 가져오기", response);
+        divKakao.innerHTML = response.properties.nickname;
       },
       fail: function (error) {
         console.log(error);
@@ -89,8 +110,12 @@
     });
   };
 
-  // KAKAO 나에게 메시지 보내기
-  const handleGoogleUserInfo = () => {
+  /**
+   *
+   * KAKAO 나에게 메시지 보내기
+   *
+   */
+  const handleSendMsgMe = () => {
     Kakao.API.request({
       url: "/v2/api/talk/memo/default/send",
       data: {
@@ -121,14 +146,19 @@
     });
   };
 
-  // KAKAO 친구목록 가져오기
-  const handleGoogleCalendar2 = () => {
+  /**
+   * KAKAO 친구목록 가져오기
+   *   - 이슈 : 팀관리에 팀원이 있음에도, 목록이 0 으로 나오고 있음.
+   *   - 계획 : 팀원의 카톡계정확인필요
+   */
+  const handleGetFriendsList = () => {
     console.log("KAKAO 친구목록 가져오기");
+    const USER_ACCESS_TOKEN = document.querySelector("input[name=access_token]").value;
 
-    // Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
-    // Kakao.isInitialized();
+    if (!Kakao.isInitialized()) {
+      Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
+    }
     Kakao.Auth.setAccessToken(USER_ACCESS_TOKEN);
-
     Kakao.API.request({
       url: "/v1/api/talk/friends",
       success: function (response) {
@@ -140,74 +170,30 @@
     });
   };
 
-  // KAKAO 친구에게 메시지 보내기
-  const handleGoogleUserInfo2 = () => {
-    Kakao.API.request({
-      url: "/v2/api/talk/memo/default/send",
-      data: {
-        template_object: {
-          object_type: "feed",
-          content: {
-            title: "카카오톡 링크 4.0",
-            description: "디폴트 템플릿 FEED",
-            image_url: "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
-            link: {
-              web_url: "https://developers.kakao.com",
-              mobile_web_url: "https://developers.kakao.com",
-            },
-          },
-          social: {
-            like_count: 100,
-            comment_count: 200,
-          },
-          button_title: "바로 확인",
-        },
-      },
-      success: function (response) {
-        console.log(response);
-      },
-      fail: function (error) {
-        console.log(error);
-      },
-    });
+  /**
+   *
+   *  KAKAO 친구에게 메시지 보내기 ( 친구목록이 안나와서 구현중)
+   *
+   */
+  const handleSendMsgFriend = () => {
+    alert("친구 uuid 가 없어서 구현중. 친구목록이 안보이는 이유부터 확인할것");
   };
 
-  // KAKAO 로그아웃
-  const handleLogout = () => {
-    if (!Kakao.Auth.getAccessToken()) {
-      console.log("Not logged in.");
-      return;
-    }
-    Kakao.Auth.logout(function () {
-      console.log(Kakao.Auth.getAccessToken());
-    });
-  };
-
-  // KAKAO 연결끊기
-  const handleUnlink = () => {
-    Kakao.API.request({
-      url: "/v1/user/unlink",
-      success: function (response) {
-        console.log(response);
-      },
-      fail: function (error) {
-        console.log(error);
-      },
-    });
-  };
-
+  /**
+   *
+   *  초기화(이벤트 정의, 리다이렉트 받기)
+   *
+   */
   const init = () => {
-    //alert(location.origin);
-
-    goGoogleAuthPage.addEventListener("click", handleGoGoogleAuthPage);
+    goKakaoAuthPage.addEventListener("click", handleGoKakaoAuthPage); // 인증페이지 이동
     btnRefreshToken.addEventListener("click", handleRefreshToken); // refresh_token 으로 access_token 갱신
-    btnGoogleCalendar.addEventListener("click", handleGoogleCalendar); // 구글 calendar
-    btnGoogleUserInfo.addEventListener("click", handleGoogleUserInfo); // 구글 사용자정보
-    btnGoogleCalendar2.addEventListener("click", handleGoogleCalendar2); // 친구목록 가져오기
-    btnGoogleUserInfo2.addEventListener("click", handleGoogleUserInfo2); // 친구에게 메시지 보내기
-    btnLogout.addEventListener("click", handleLogout); // 로그아웃
-    btnUnlink.addEventListener("click", handleUnlink); // 연결끊기
 
+    btnGetUserInfo.addEventListener("click", handleGetUserInfo); // 로그인 사용자 정보
+    btnSendMsgMe.addEventListener("click", handleSendMsgMe); // 나에게 메시지 보내기
+    btnGetFriendsList.addEventListener("click", handleGetFriendsList); // 친구목록 가져오기
+    btnSendMsgFriend.addEventListener("click", handleSendMsgFriend); // 친구에게 메시지 보내기
+
+    // redirect 시 url 의 access_token, refresh_token 을 input 에 셋팅
     const access_token = new URLSearchParams(location.search).get("access_token");
     const refresh_token = new URLSearchParams(location.search).get("refresh_token");
     document.querySelector("input[name=access_token]").value = access_token;
