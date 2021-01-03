@@ -6,12 +6,11 @@
     FRONTEND_URL = "https://jn22l.github.io/sshtht"; // 깃허브
   }
 
-  const goGoogleAuthPage = document.querySelector("#go_auth");
-  const btnRefreshToken = document.querySelector("#btnRefreshToken");
-  const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
-  const btnGoogleUserInfo = document.querySelector("#btnGoogleUserInfo");
-
-  // 1. 구글 인증페이지 이동
+  /**
+   *
+   * 1. 구글 인증페이지 이동
+   *
+   */
   const handleGoGoogleAuthPage = (e) => {
     e.preventDefault();
 
@@ -33,9 +32,17 @@
     window.location.href = authUrl;
   };
 
-  // 2. code 로 access_token 얻기 -> oauth2_redirect.html 에서 정의
+  /**
+   *
+   * 2. code 로 access_token 얻기 -> oauth2_redirect.html 에서 정의
+   *
+   */
 
-  // 3. refresh_token 으로 access_token 갱신하기
+  /**
+   *
+   * 3. refresh_token 으로 access_token 갱신하기
+   *
+   */
   const handleRefreshToken = (e) => {
     var refresh_token = document.querySelector("input[name=refresh_token]").value;
 
@@ -65,7 +72,11 @@
       .catch((error) => console.log("error", error));
   };
 
-  // 구글 calendar 가져오기
+  /**
+   *
+   * 구글 calendar 가져오기
+   *
+   */
   const handleGoogleCalendar = () => {
     var requestOptions = {
       method: "GET",
@@ -86,7 +97,11 @@
       .catch((error) => console.log("error", error));
   };
 
-  // 구글 userinfo 가져오기
+  /**
+   *
+   * 구글 userinfo 가져오기
+   *
+   */
   const handleGoogleUserInfo = () => {
     var requestOptions = {
       method: "GET",
@@ -105,8 +120,16 @@
       .catch((error) => console.log("error", error));
   };
 
+  /**
+   *
+   * init
+   *
+   */
   const init = () => {
-    //alert(location.origin);
+    const goGoogleAuthPage = document.querySelector("#go_auth");
+    const btnRefreshToken = document.querySelector("#btnRefreshToken");
+    const btnGoogleCalendar = document.querySelector("#btnGoogleCalendar");
+    const btnGoogleUserInfo = document.querySelector("#btnGoogleUserInfo");
 
     goGoogleAuthPage.addEventListener("click", handleGoGoogleAuthPage);
     btnRefreshToken.addEventListener("click", handleRefreshToken); // refresh_token 으로 access_token 갱신
