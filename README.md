@@ -2,6 +2,16 @@
 
 - 화면 : <https://jn22l.github.io/sshtht>
 
+## 2021-01-03 카카오 OAuth2.0 연동하기 추가
+
+- 로그인 사용자 정보 가져오기 OK
+- 나에게 메시지 보내기 OK
+- 친구목록 가져오기
+  - 팀관리에 추가한 친구목록을 못가져 오는 문제
+  - 팀원의 카카오 계정 확인필요
+- 친구에게 메시지 보내기
+  - 친구의 uuid 가 없어서 테스트 못해봄
+
 ## 2020-12-27 구글 OAuth2.0 연동하여, 사용자정보 및 캘린더 정보 가져오기
 
 0. 구글 클라이언트 ID / SECRET 얻기 + SCOPE 설정
@@ -19,8 +29,7 @@
 
 5. access_token 만료시 refresh_token 으로 access_token 얻기(POST)
 
-9. 상세 : <https://jn22l.github.io/oauth2/>
-
+6. 상세 : <https://jn22l.github.io/oauth2/>
 
 ## 2020-12-21 hikariCP 설정추가
 
