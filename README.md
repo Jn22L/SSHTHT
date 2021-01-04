@@ -20,15 +20,10 @@
 - https://console.cloud.google.com/
 
 1. 구글 인증페이지 이동(GET) 만들기
-
 2. 인증페이지에서 인증되면, code 값이 리다이렉트 되는 url(GET)
-
 3. 2번에서 받은 code 값으로 access_token 얻기(POST)
-
 4. access_token 으로 사용자정보 가져오기(GET)
-
 5. access_token 만료시 refresh_token 으로 access_token 얻기(POST)
-
 6. 상세 : <https://jn22l.github.io/oauth2/>
 
 ## 2020-12-21 hikariCP 설정추가
