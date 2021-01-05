@@ -110,15 +110,36 @@
    *
    */
   const handleSendMsgMe = () => {
+    const smTitle = document.querySelector("input[name=sm_title]");
+    const smDesc = document.querySelector("input[name=sm_desc]");
+
+    if (smTitle.value === "" || smTitle.value == null) {
+      alert("제목을 입력해 주세요");
+      smTitle.focus();
+      return;
+    }
+
+    if (smDesc.value === "" || smDesc.value == null) {
+      alert("내용을 입력해 주세요");
+      smDesc.focus();
+      return;
+    }
+
+    console.log(smTitle.value, smDesc.value);
+
+    if (!Kakao.isInitialized()) {
+      Kakao.init("c65e1f58ae73f239dca102d177d9da8a");
+    }
     Kakao.API.request({
       url: "/v2/api/talk/memo/default/send",
       data: {
         template_object: {
           object_type: "feed",
           content: {
-            title: "카카오톡 링크 4.0",
-            description: "디폴트 템플릿 FEED",
-            image_url: "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+            title: smTitle.value,
+            description: smDesc.value,
+            //image_url: "http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+            image_url: "",
             link: {
               web_url: "https://developers.kakao.com",
               mobile_web_url: "https://developers.kakao.com",
@@ -133,6 +154,7 @@
       },
       success: function (response) {
         console.log(response);
+        alert("나에게 알림톡 보내기 성공!");
       },
       fail: function (error) {
         console.log(error);
