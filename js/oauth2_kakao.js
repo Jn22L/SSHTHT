@@ -155,6 +155,9 @@
       success: function (response) {
         console.log(response);
         alert("나에게 알림톡 보내기 성공!");
+        smTitle.value = "";
+        smDesc.value = "";
+        smTitle.focus();
       },
       fail: function (error) {
         console.log(error);
