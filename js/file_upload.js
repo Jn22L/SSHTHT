@@ -1,0 +1,3 @@
+(() => {
+  alert("file_upload");
+})();

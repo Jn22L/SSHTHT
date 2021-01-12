@@ -7,6 +7,7 @@
     "/oauth2Google": "./pages/oauth2_google.html",
     "/oauth2Kakao": "./pages/oauth2_kakao.html",
     "/fetchExample": "./pages/fetch_example.html",
+    "/fileUpload": "./pages/file_upload.html",
   };
 
   function goMenu(path, route) {
