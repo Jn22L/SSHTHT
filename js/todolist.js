@@ -136,7 +136,8 @@
 
       var a = document.createElement("a");
       a.setAttribute("href", v.todoDt);
-      a.innerHTML = v.todoDt + " " + v.todoList;
+      //a.innerHTML = v.todoDt + " " + v.todoList;
+      a.insertAdjacentHTML("beforeend", v.todoDt + " " + v.todoList);
 
       let inputAdd = document.getElementById("inputAdd");
       var btnDel = document.createElement("input");
