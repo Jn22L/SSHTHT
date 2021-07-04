@@ -2,6 +2,13 @@
 
 - 화면 : <https://jn22l.github.io/sshtht>
 
+## 2021-07-04 AirTable 연동 테스트
+
+- airtable.com 연동하여 주식관리 만들기
+- airtable 사용해보니 진짜 잘만든것 같음
+- 앞으로 no code 의 활용이 점점더 커질듯 함
+- 결론은 data 
+
 ## 2021-01-03 카카오 OAuth2.0 연동하기 추가
 
 - 로그인 사용자 정보 가져오기 OK
