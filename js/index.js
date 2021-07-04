@@ -8,6 +8,7 @@
     "/oauth2Kakao": "./pages/oauth2_kakao.html",
     "/fetchExample": "./pages/fetch_example.html",
     "/fileUpload": "./pages/file_upload.html",
+    "/airTable": "./pages/air_table.html",
   };
 
   function goMenu(path, route) {
