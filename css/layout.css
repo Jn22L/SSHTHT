@@ -13,19 +13,19 @@ header {
 
 /* 헤더글씨 - 구글 BLUE*/
 header .title-blue {
-  color: #4285f4;
+  color: #4285F4;
 }
 /* 헤더글씨 - 구글 RED*/
 header .title-red {
-  color: #db4437;
+  color: #EA4335;
 }
 /* 헤더글씨 - 구글 YELLOW*/
 header .title-yellow {
-  color: #f4b400;
+  color: #FBBC05;
 }
 /* 헤더글씨 - 구글 GREEN*/
 header .title-green {
-  color: #0f9d58;
+  color: #34A853;
 }
 
 /* Create two columns/boxes that floats next to each other */
